@@ -8,11 +8,36 @@
 import SwiftUI
 
 struct MyListView: View {
+    
+    let myList: FetchedResults<MyList>
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        NavigationStack {
+            if myList.isEmpty {
+                Spacer()
+                Text("Nothing Yet!!!")
+            }
+            else {
+                ForEach(myList) { list in
+                    NavigationLink(value: list) {
+                        VStack {
+                            MyListItemView(myList: list)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .padding(.leading, 10)
+                            Divider()
+                        }
+                    }
+                }
+                .scrollContentBackground(.hidden)
+                .navigationDestination(for: MyList.self) { list in
+                    MyListDetailView(myList: list)
+                        .navigationTitle(list.name)
+                }
+            }
+        }
     }
 }
 
-#Preview {
-    MyListView()
-}
+//#Preview {
+//    MyListView()
+//}

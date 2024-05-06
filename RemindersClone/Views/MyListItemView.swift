@@ -8,11 +8,25 @@
 import SwiftUI
 
 struct MyListItemView: View {
+    
+    let myList: MyList
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        HStack {
+            Image(systemName: "line.3.horizontal.circle.fill")
+                .font(.system(size: 50))
+                .foregroundStyle(Color(myList.color ?? .black))
+            Text(myList.name)
+                .font(.title2)
+                .fontWeight(.medium)
+            Spacer()
+            Image(systemName: "chevron.right")
+                .foregroundStyle(.secondary)
+                .padding(.trailing, 10)
+        }
     }
 }
 
 #Preview {
-    MyListItemView()
+    MyListItemView(myList: PreviewData.myList)
 }
